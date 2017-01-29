@@ -8,6 +8,7 @@
 BOOL CALLBACK SearchVoiceroid(HWND hwnd, LPARAM lp);
 HWND CALLBACK SearchTextArea(HWND mainWindow);
 void sendText(HWND hwnd, std::string text);
+HWND CALLBACK SearchPlayButton(HWND mainWindow);
 
 // オプション用の構造体
 struct Options {
@@ -61,6 +62,10 @@ void main(int argc, char* argv[]) {
 	SendMessage(textArea, WM_SETTEXT, (WPARAM)_T(""), NULL);
 
 	sendText(textArea, option.comment);
+
+	HWND play_button = SearchPlayButton(voiceroid);
+	SendMessage(play_button, BM_CLICK, 0, 0);
+
 }
 
 
@@ -102,4 +107,20 @@ void sendText(HWND hwnd, std::string text) {
 		SendMessage(hwnd, WM_CHAR, (WPARAM)wcs[i], 0);
 	}
 	delete wcs;
+}
+
+HWND CALLBACK SearchPlayButton(HWND mainWindow) {
+	HWND hwnd = GetWindow(mainWindow, GW_CHILD);
+	hwnd = GetWindow(hwnd, GW_CHILD);
+	hwnd = GetWindow(hwnd, GW_HWNDNEXT);
+	hwnd = GetWindow(hwnd, GW_CHILD);
+	hwnd = GetWindow(hwnd, GW_CHILD);
+	hwnd = GetWindow(hwnd, GW_CHILD);
+	hwnd = GetWindow(hwnd, GW_CHILD);
+	hwnd = GetWindow(hwnd, GW_CHILD);
+	hwnd = GetWindow(hwnd, GW_HWNDNEXT);
+	hwnd = GetWindow(hwnd, GW_CHILD);
+	
+	return hwnd;
+	
 }
