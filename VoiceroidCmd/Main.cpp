@@ -50,8 +50,6 @@ void _tmain(int argc, _TCHAR* argv[]) {
 		echo_text.append(str);
 	}
 
-	printf("echo_text:%d\n", echo_text.length());
-
 	// Voiceroid‚Ìƒnƒ“ƒhƒ‰‚ÌŽæ“¾
 	EnumWindows(SearchVoiceroid, 0x0);
 
@@ -100,8 +98,6 @@ void sendText(HWND hwnd, std::string text) {
 	size_t num = 0;
 	wchar_t *wcs = new wchar_t[text.length() + 1];
 	errno_t err = mbstowcs_s(&num, wcs, text.length() + 1, text.c_str(), _TRUNCATE);
-
-	printf("wcslen(wcs):%d\n", wcslen(wcs));
 
 	for (int i = 0; i < wcslen(wcs); i++) {
 		SendMessage(hwnd, WM_CHAR, (WPARAM)wcs[i], 0);
